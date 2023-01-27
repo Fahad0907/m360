@@ -1,11 +1,14 @@
 import React from "react";
 import { useGetAllFlightQuery } from "../Redux/Api";
+import { useNavigate } from "react-router-dom";
 import { Card, Col, Row } from "antd";
 import { Typography } from "antd";
+import { Spin } from "antd";
 const ShowAlldata = () => {
   const { data, isError, isLoading, isSuccess, error } = useGetAllFlightQuery(
     {}
   );
+  const navigate = useNavigate();
   const { Meta } = Card;
   const { Title } = Typography;
   console.log(data);
@@ -15,13 +18,25 @@ const ShowAlldata = () => {
         <div style={{ textAlign: "center", marginBottom: 50 }}>
           <Title level={2}>All Launches</Title>
         </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: "100px",
+          }}
+        >
+          {!data && <Spin />}
+        </div>
+
         <Row gutter={16}>
           {data &&
             data.map((item: any, i: number) => (
               <Col span={8} key={item.flight_number}>
                 <Card
+                  onClick={() => navigate(`details/${item.flight_number}`)}
                   hoverable
-                  style={{ width: 440, marginBottom: 20 }}
+                  style={{ width: 440, marginBottom: 20, marginLeft: 10 }}
                   cover={
                     <img alt="example" src={item.links.mission_patch_small} />
                   }

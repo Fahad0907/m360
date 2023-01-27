@@ -7,6 +7,9 @@ export const flightApi = createApi({
     getAllFlight: builder.query({
       query: () => "v3/launches",
     }),
+    getFlight: builder.query({
+      query: (flight) => `v3/launches/${flight}`,
+    }),
   }),
 });
-export const { useGetAllFlightQuery } = flightApi;
+export const { useGetAllFlightQuery, useGetFlightQuery } = flightApi;
