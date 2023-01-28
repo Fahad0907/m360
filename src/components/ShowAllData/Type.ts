@@ -1,7 +1,7 @@
 export type apiType = {
   flight_number: number;
   mission_name: string;
-  mission_id: any;
+  mission_id: any[];
   upcoming: boolean;
   launch_year: string;
   launch_date_unix: number;
@@ -46,66 +46,66 @@ export type apiType = {
           payload_mass_lbs: number;
           orbit: string;
           orbit_params: {
-            reference_system: "geocentric";
-            regime: "low-earth";
-            longitude: null;
+            reference_system: string;
+            regime: string;
+            longitude: any;
             semi_major_axis_km: null;
             eccentricity: null;
-            periapsis_km: 400;
-            apoapsis_km: 500;
-            inclination_deg: 39;
-            period_min: null;
-            lifespan_years: null;
-            epoch: null;
-            mean_motion: null;
-            raan: null;
-            arg_of_pericenter: null;
-            mean_anomaly: null;
+            periapsis_km: any;
+            apoapsis_km: any;
+            inclination_deg: any;
+            period_min: any;
+            lifespan_years: any;
+            epoch: any;
+            mean_motion: any;
+            raan: any;
+            arg_of_pericenter: any;
+            mean_anomaly: any;
           };
         }
       ];
     };
     fairings: {
-      reused: false;
-      recovery_attempt: false;
-      recovered: false;
-      ship: null;
+      reused: boolean;
+      recovery_attempt: boolean;
+      recovered: boolean;
+      ship: any;
     };
   };
-  ships: [];
+  ships: any[];
   telemetry: {
-    flight_club: null;
+    flight_club: any;
   };
   launch_site: {
-    site_id: "kwajalein_atoll";
-    site_name: "Kwajalein Atoll";
-    site_name_long: "Kwajalein Atoll Omelek Island";
+    site_id: string;
+    site_name: string;
+    site_name_long: string;
   };
-  launch_success: false;
+  launch_success: boolean;
   launch_failure_details: {
-    time: 33;
-    altitude: null;
-    reason: "merlin engine failure";
+    time: boolean;
+    altitude: any;
+    reason: string;
   };
   links: {
-    mission_patch: "https://images2.imgbox.com/40/e3/GypSkayF_o.png";
-    mission_patch_small: "https://images2.imgbox.com/3c/0e/T8iJcSN3_o.png";
-    reddit_campaign: null;
-    reddit_launch: null;
-    reddit_recovery: null;
-    reddit_media: null;
-    presskit: null;
-    article_link: "https://www.space.com/2196-spacex-inaugural-falcon-1-rocket-lost-launch.html";
-    wikipedia: "https://en.wikipedia.org/wiki/DemoSat";
-    video_link: "https://www.youtube.com/watch?v=0a_00nJ_Y88";
-    youtube_id: "0a_00nJ_Y88";
-    flickr_images: [];
+    mission_patch: string;
+    mission_patch_small: string;
+    reddit_campaign: any;
+    reddit_launch: any;
+    reddit_recovery: any;
+    reddit_media: any;
+    presskit: any;
+    article_link: string;
+    wikipedia: string;
+    video_link: string;
+    youtube_id: string;
+    flickr_images: any[];
   };
-  details: "Engine failure at 33 seconds and loss of vehicle";
-  static_fire_date_utc: "2006-03-17T00:00:00.000Z";
-  static_fire_date_unix: 1142553600;
+  details: string;
+  static_fire_date_utc: string;
+  static_fire_date_unix: number;
   timeline: {
-    webcast_liftoff: 54;
+    webcast_liftoff: number;
   };
-  crew: null;
+  crew: any;
 };

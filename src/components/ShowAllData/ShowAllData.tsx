@@ -1,22 +1,19 @@
 import React, { useState } from "react";
-import { useGetAllFlightQuery, useGetByRocketNameQuery } from "../Redux/Api";
+import { useGetAllFlightQuery } from "../Redux/Api";
 import { useNavigate } from "react-router-dom";
-import { Col, Row, Input, Typography, Spin } from "antd";
+import { Col, Row, Input, Typography, Spin, Select } from "antd";
 import MapData from "./Mapdata";
 const ShowAlldata = () => {
-  const {
-    data: allData,
-    isError,
-    isLoading,
-    isSuccess,
-    error,
-  } = useGetAllFlightQuery({});
-  const [rocketSeacrch, setRocketSeacrch] = useState<any>(null);
-  const navigate = useNavigate();
+  const { data: allData } = useGetAllFlightQuery({});
+  const [rocketSeacrch, setRocketSeacrch] = useState<string>("");
+  const navigate: any = useNavigate();
   const { Title } = Typography;
   const { Search } = Input;
   const rocketSearch = () => {
     navigate(`/search?rocket_name=${rocketSeacrch}`);
+  };
+  const handleChange = (value: string) => {
+    navigate(`/filter?option=${value}`, { state: { data: allData } });
   };
   return (
     <div>
@@ -25,7 +22,7 @@ const ShowAlldata = () => {
           <Title level={2}>All Launches</Title>
         </div>
         <Row gutter={16}>
-          <Col span={8}></Col>
+          <Col span={6}></Col>
           <Col span={8}>
             <Search
               size="large"
@@ -36,18 +33,37 @@ const ShowAlldata = () => {
               onSearch={rocketSearch}
             />
           </Col>
+          <Col span={8}>
+            <Select
+              defaultValue="Filter data"
+              onChange={handleChange}
+              style={{ width: 220 }}
+              size="large"
+              bordered={true}
+              options={[
+                {
+                  value: "Launch Status Failure",
+                  label: "Launch Status Failure",
+                },
+                {
+                  value: "Launch Status Success",
+                  label: "Launch Status Success",
+                },
+                { value: "Upcoming", label: "Upcoming" },
+                { value: "Last Year", label: "Last Year" },
+                { value: "Last Month", label: "Last Month" },
+              ]}
+            />
+          </Col>
         </Row>
 
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: "100px",
-          }}
-        >
-          {!allData && <Spin size="large" />}
-        </div>
+        <Row>
+          <Col span={10}> </Col>
+          <Col span={8} style={{ marginTop: 50 }}>
+            {" "}
+            {!allData && <Spin size="large" />}{" "}
+          </Col>
+        </Row>
         <MapData data={allData} />
       </div>
     </div>

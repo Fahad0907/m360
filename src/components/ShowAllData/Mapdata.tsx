@@ -1,6 +1,7 @@
 import React from "react";
-import { Card, Col, Row, Input, Typography, Spin } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { useNavigate } from "react-router-dom";
+
 const MapData = ({ data }: any) => {
   const { Meta } = Card;
   const { Title } = Typography;
@@ -12,7 +13,7 @@ const MapData = ({ data }: any) => {
           data.map((item: any, i: number) => (
             <Col span={8} key={item.flight_number}>
               <Card
-                onClick={() => navigate(`details/${item.flight_number}`)}
+                onClick={() => navigate(`/details/${item.flight_number}`)}
                 hoverable
                 style={{ width: 440, marginBottom: 20, marginLeft: 10 }}
                 cover={
