@@ -7,7 +7,7 @@ const BackToHome = () => {
     <div>
       <Row style={{ marginTop: 50, marginBottom: 50 }}>
         <Col span={8}></Col>
-        <Col span={8}>
+        <Col span={7}>
           <Button onClick={() => navigate("/")} type="primary" block>
             Back to home
           </Button>

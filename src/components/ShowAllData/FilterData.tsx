@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import MapData from "./Mapdata";
-import { Alert, Col, Row, Button } from "antd";
+import { Alert, Col, Row, Typography } from "antd";
 import { apiType } from "./Type";
 import BackToHome from "../Reusable/BackToHome";
 const FilterData = () => {
-  const navigate = useNavigate();
+  const { Title } = Typography;
   const data: apiType[] = useLocation().state.data;
   const [searchParams, setSearchParams] = useSearchParams();
   const option: string | any = searchParams.get("option");
@@ -43,11 +43,16 @@ const FilterData = () => {
     <div>
       <BackToHome />
       {a.length > 0 ? (
-        <MapData data={a} />
+        <>
+          <Title style={{ marginLeft: 50, marginBottom: 30 }} level={5}>
+            Filter Option : {option}
+          </Title>
+          <MapData data={a} />
+        </>
       ) : (
         <Row>
           <Col span={8}></Col>
-          <Col span={8}>
+          <Col span={7}>
             <Alert message={info} type="info" />
           </Col>
         </Row>

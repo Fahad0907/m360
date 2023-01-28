@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useGetAllFlightQuery } from "../Redux/Api";
 import { useNavigate } from "react-router-dom";
-import { Col, Row, Input, Typography, Spin, Select } from "antd";
+import { Col, Row, Input, Typography, Spin, Select, message } from "antd";
 import MapData from "./Mapdata";
 const ShowAlldata = () => {
   const { data: allData } = useGetAllFlightQuery({});
@@ -10,7 +10,9 @@ const ShowAlldata = () => {
   const { Title } = Typography;
   const { Search } = Input;
   const rocketSearch = () => {
-    navigate(`/search?rocket_name=${rocketSeacrch}`);
+    if (rocketSeacrch.length === 0)
+      message.info("Enter what you want to search");
+    else navigate(`/search?rocket_name=${rocketSeacrch}`);
   };
   const handleChange = (value: string) => {
     navigate(`/filter?option=${value}`, { state: { data: allData } });
