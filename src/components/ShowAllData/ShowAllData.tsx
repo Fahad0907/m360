@@ -1,23 +1,43 @@
-import React from "react";
-import { useGetAllFlightQuery } from "../Redux/Api";
+import React, { useState } from "react";
+import { useGetAllFlightQuery, useGetByRocketNameQuery } from "../Redux/Api";
 import { useNavigate } from "react-router-dom";
-import { Card, Col, Row } from "antd";
-import { Typography } from "antd";
-import { Spin } from "antd";
+import { Col, Row, Input, Typography, Spin } from "antd";
+import MapData from "./Mapdata";
 const ShowAlldata = () => {
-  const { data, isError, isLoading, isSuccess, error } = useGetAllFlightQuery(
-    {}
-  );
+  const {
+    data: allData,
+    isError,
+    isLoading,
+    isSuccess,
+    error,
+  } = useGetAllFlightQuery({});
+  const [rocketSeacrch, setRocketSeacrch] = useState<any>(null);
   const navigate = useNavigate();
-  const { Meta } = Card;
   const { Title } = Typography;
-  console.log(data);
+  const { Search } = Input;
+  const rocketSearch = () => {
+    navigate(`/search?rocket_name=${rocketSeacrch}`);
+  };
   return (
     <div>
       <div className="site-card-wrapper">
         <div style={{ textAlign: "center", marginBottom: 50 }}>
           <Title level={2}>All Launches</Title>
         </div>
+        <Row gutter={16}>
+          <Col span={8}></Col>
+          <Col span={8}>
+            <Search
+              size="large"
+              placeholder="input rocket name for search"
+              enterButton
+              allowClear
+              onChange={(e) => setRocketSeacrch(e.target.value)}
+              onSearch={rocketSearch}
+            />
+          </Col>
+        </Row>
+
         <div
           style={{
             display: "flex",
@@ -26,37 +46,9 @@ const ShowAlldata = () => {
             marginTop: "100px",
           }}
         >
-          {!data && <Spin />}
+          {!allData && <Spin size="large" />}
         </div>
-
-        <Row gutter={16}>
-          {data &&
-            data.map((item: any, i: number) => (
-              <Col span={8} key={item.flight_number}>
-                <Card
-                  onClick={() => navigate(`details/${item.flight_number}`)}
-                  hoverable
-                  style={{ width: 440, marginBottom: 20, marginLeft: 10 }}
-                  cover={
-                    <img alt="example" src={item.links.mission_patch_small} />
-                  }
-                >
-                  <Meta title={item.mission_name} />
-                  <Title level={5}>Launch year : {item.launch_year}</Title>
-                  <Title level={5}>
-                    Launch date : {item.launch_date_local}
-                  </Title>
-                  <Title level={5}>
-                    Launch status : {item.launch_success ? "True" : "False"}
-                  </Title>
-
-                  <Title level={5}>
-                    Upcoming status : {item.upcoming ? "True" : "False"}
-                  </Title>
-                </Card>
-              </Col>
-            ))}
-        </Row>
+        <MapData data={allData} />
       </div>
     </div>
   );

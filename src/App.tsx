@@ -1,5 +1,6 @@
 import ShowAlldata from "./components/ShowAllData/ShowAllData";
 import ShowSingleData from "./components/ShowSingleData/ShowSingleData";
+import Search from "./components/ShowAllData/Search";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         <Routes>
           <Route path="/" element={<ShowAlldata />}></Route>
           <Route path="/details/:id" element={<ShowSingleData />}></Route>
+          <Route path="/search" element={<Search />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
